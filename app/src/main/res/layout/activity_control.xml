@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".sensorDisplay.control">
+
+
+    <ImageButton
+        android:id="@+id/thermoImgButton"
+        android:layout_width="89dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/border"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/thermostat"
+        app:layout_constraintEnd_toStartOf="@+id/fanImgButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tool_bar" />
+
+    <TextView
+        android:id="@+id/therText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Cooling"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="@+id/thermoImgButton"
+        app:layout_constraintStart_toStartOf="@+id/thermoImgButton"
+        app:layout_constraintTop_toBottomOf="@+id/thermoImgButton" />
+
+    <TextView
+        android:id="@+id/fanText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Fan"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="@+id/fanImgButton"
+        app:layout_constraintStart_toStartOf="@+id/fanImgButton"
+        app:layout_constraintTop_toBottomOf="@+id/fanImgButton" />
+
+    <ImageButton
+        android:id="@+id/fanImgButton"
+        android:layout_width="89dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/border"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/fan"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/thermoImgButton"
+        app:layout_constraintTop_toBottomOf="@+id/tool_bar" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="31dp"
+        app:layout_constraintGuide_percent="08" />
+
+    <FrameLayout
+        android:id="@+id/childFragContainer"
+        android:layout_width="match_parent"
+        android:layout_height="530dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/therText">
+
+    </FrameLayout>
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

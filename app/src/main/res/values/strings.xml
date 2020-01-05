@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">fypWoTab</string>
+    <string name="title_activity_display">display</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="quiet">Quiet</string>
+    <string name="auto">Auto</string>
+    <string name="fan_speed">Fan Speed</string>
+    <string name="high">HIGH</string>
+    <string name="med">MED</string>
+    <string name="low">LOW</string>
+    <string name="turbo">Turbo</string>
+</resources>
