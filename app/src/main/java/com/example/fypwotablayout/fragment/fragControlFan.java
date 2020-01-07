@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.fypwotablayout.R;
+import com.example.fypwotablayout.sensorDisplay.control;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +29,9 @@ public class fragControlFan extends Fragment {
     private DatabaseReference mDatabaseReference;
     private Long fanSpeed;
 
+    private String roomNum;
+    private String sensorType;
+
     public fragControlFan() {
         // Required empty public constructor
     }
@@ -45,8 +49,12 @@ public class fragControlFan extends Fragment {
         mQuietButton = root.findViewById(R.id.fanQuiteButton);
         mAutoButton = root.findViewById(R.id.fanAutoButton);
 
+        control temp = (control) getActivity();
+        roomNum = temp.getRoomNum();
+        sensorType = temp.getSensorType();
+
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        mDatabaseReference.child("room1").child("Control").child("fan").addValueEventListener(new ValueEventListener() {
+        mDatabaseReference.child(roomNum).child(sensorType).child("fan").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
@@ -112,7 +120,7 @@ public class fragControlFan extends Fragment {
                 mQuietButton.setBackgroundResource(0);
                 mAutoButton.setBackgroundResource(0);
                 mTurboButton.setBackgroundResource(0);
-                mDatabaseReference.child("room1").child("Control").child("fan").setValue(0);
+                mDatabaseReference.child(roomNum).child(sensorType).child("fan").setValue(0);
             }
         });
 
@@ -125,7 +133,7 @@ public class fragControlFan extends Fragment {
                 mQuietButton.setBackgroundResource(0);
                 mAutoButton.setBackgroundResource(0);
                 mTurboButton.setBackgroundResource(0);
-                mDatabaseReference.child("room1").child("Control").child("fan").setValue(1);
+                mDatabaseReference.child(roomNum).child(sensorType).child("fan").setValue(1);
             }
         });
 
@@ -138,7 +146,7 @@ public class fragControlFan extends Fragment {
                 mQuietButton.setBackgroundResource(0);
                 mAutoButton.setBackgroundResource(0);
                 mTurboButton.setBackgroundResource(0);
-                mDatabaseReference.child("room1").child("Control").child("fan").setValue(2);
+                mDatabaseReference.child(roomNum).child(sensorType).child("fan").setValue(2);
             }
         });
 
@@ -151,7 +159,7 @@ public class fragControlFan extends Fragment {
                 mQuietButton.setBackgroundResource(0);
                 mAutoButton.setBackgroundResource(0);
                 mTurboButton.setBackgroundResource(R.drawable.circle);
-                mDatabaseReference.child("room1").child("Control").child("fan").setValue(3);
+                mDatabaseReference.child(roomNum).child(sensorType).child("fan").setValue(3);
             }
         });
 
@@ -164,7 +172,7 @@ public class fragControlFan extends Fragment {
                 mQuietButton.setBackgroundResource(R.drawable.circle);
                 mAutoButton.setBackgroundResource(0);
                 mTurboButton.setBackgroundResource(0);
-                mDatabaseReference.child("room1").child("Control").child("fan").setValue(4);
+                mDatabaseReference.child(roomNum).child(sensorType).child("fan").setValue(4);
             }
         });
 
@@ -177,7 +185,7 @@ public class fragControlFan extends Fragment {
                 mQuietButton.setBackgroundResource(0);
                 mAutoButton.setBackgroundResource(R.drawable.circle);
                 mTurboButton.setBackgroundResource(0);
-                mDatabaseReference.child("room1").child("Control").child("fan").setValue(5);
+                mDatabaseReference.child(roomNum).child(sensorType).child("fan").setValue(5);
             }
         });
 

@@ -11,15 +11,31 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.fypwotablayout.R;
+import com.example.fypwotablayout.Storage.ChildConstants;
+import com.example.fypwotablayout.Storage.PrefKey;
 import com.example.fypwotablayout.fragment.fragControlFan;
 import com.example.fypwotablayout.fragment.fragControlTemp;
 
-public class control extends AppCompatActivity {
+public class control extends AppCompatActivity implements PrefKey, ChildConstants {
+
+    private String RoomNum;
+    private String sensorType;
+
+    public String getRoomNum() {
+        return RoomNum;
+    }
+
+    public String getSensorType() {
+        return sensorType;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control);
+
+        RoomNum = getIntent().getStringExtra(ROOM_POSITION_DISPLAY);
+        sensorType = getIntent().getStringExtra(SENSOR_TYPE);
 
         ImageButton mTherButton = findViewById(R.id.thermoImgButton);
         ImageButton mFanButton = findViewById(R.id.fanImgButton);

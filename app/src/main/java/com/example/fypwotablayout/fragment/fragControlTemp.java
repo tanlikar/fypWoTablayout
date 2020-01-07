@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.fypwotablayout.R;
+import com.example.fypwotablayout.sensorDisplay.control;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +28,9 @@ public class fragControlTemp extends Fragment {
     private  ImageButton powerButton;
     private DatabaseReference mDatabase;
 
+    private String roomNum;
+    private String sensorType;
+
     public fragControlTemp() {
         // Required empty public constructor
     }
@@ -36,6 +40,10 @@ public class fragControlTemp extends Fragment {
                              Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_control_temp, container, false);
+
+        control temp = (control) getActivity();
+        roomNum = temp.getRoomNum();
+        sensorType = temp.getSensorType();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -60,7 +68,7 @@ public class fragControlTemp extends Fragment {
 
             @Override
             public void onStopTrackingTouch(Croller croller) {
-                mDatabase.child("room1").child("Control").child("Temperature").setValue(crollerProgress);
+                mDatabase.child(roomNum).child(sensorType).child("Temperature").setValue(crollerProgress);
             }
         });
 
@@ -74,7 +82,7 @@ public class fragControlTemp extends Fragment {
                     crollerProgress ++;
                     mCroller.setProgress(mCroller.getProgress()+ 1);
                 }
-                mDatabase.child("room1").child("Control").child("Temperature").setValue(crollerProgress);
+                mDatabase.child(roomNum).child(sensorType).child("Temperature").setValue(crollerProgress);
                 mCroller.setLabel(crollerProgress.toString());
             }
         });
@@ -89,7 +97,7 @@ public class fragControlTemp extends Fragment {
                     crollerProgress --;
                     mCroller.setProgress(mCroller.getProgress()- 1);
                 }
-                mDatabase.child("room1").child("Control").child("Temperature").setValue(crollerProgress);
+                mDatabase.child(roomNum).child(sensorType).child("Temperature").setValue(crollerProgress);
                 mCroller.setLabel(crollerProgress.toString());
             }
         });
@@ -97,7 +105,7 @@ public class fragControlTemp extends Fragment {
         powerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mDatabase.child("room1").child("Control").child("on").setValue(1);
+                mDatabase.child(roomNum).child(sensorType).child("on").setValue(1);
             }
         });
 
@@ -105,7 +113,7 @@ public class fragControlTemp extends Fragment {
     }
 
     private void init(){
-        mDatabase.child("room1").child("Control").child("Temperature").addValueEventListener(new ValueEventListener() {
+        mDatabase.child(roomNum).child(sensorType).child("Temperature").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){

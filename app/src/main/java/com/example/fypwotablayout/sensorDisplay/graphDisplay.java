@@ -3,6 +3,7 @@ package com.example.fypwotablayout.sensorDisplay;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -61,6 +62,14 @@ public class graphDisplay extends AppCompatActivity implements PrefKey {
 
         sensorType = getIntent().getStringExtra(SENSOR_TYPE);
         roomPosition = getIntent().getStringExtra(ROOM_POSITION_DISPLAY);
+
+        // Attaching the layout to the toolbar object
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        // Setting toolbar as the ActionBar with setSupportActionBar() call
+        toolbar.setTitle(sensorType);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // no description text
         chart.getDescription().setEnabled(false);
@@ -169,5 +178,19 @@ public class graphDisplay extends AppCompatActivity implements PrefKey {
             }
         });
 
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

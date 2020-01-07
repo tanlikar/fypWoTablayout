@@ -79,6 +79,8 @@ public class display extends AppCompatActivity implements PrefKey, ChildConstant
 
                 if(i == 0){
                     Intent intent = new Intent(display.this, control.class);
+                    intent.putExtra(ROOM_POSITION_DISPLAY, roomNum);
+                    intent.putExtra(SENSOR_TYPE, CONTROLCHILD);
                     startActivity(intent);
                 }else if (i == 1){
                     Intent intent = new Intent(display.this, graphDisplay.class);
