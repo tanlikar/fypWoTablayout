@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -115,7 +116,15 @@ public class graphDisplay extends AppCompatActivity implements PrefKey {
         mQuery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                if(mGeneralData.size()>=720){
+                    while(mGeneralData.size()>=720){
+                        mGeneralData.remove(0);
+                    }
+                }
+
                 mGeneralData.add(dataSnapshot.getValue(generalData.class));
+                Log.d("graph", "onChildAdded: "+mGeneralData.size());
 
                 ArrayList<Entry> mEntries = new ArrayList<>();
                 referenceTimestamp = mGeneralData.get(0).getTimestamp()/1000;

@@ -1,6 +1,7 @@
 package com.example.fypwotablayout.helper;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class MyMarkerView extends MarkerView implements ChildConstants {
     private Date mDate;
     private String child;
     private String temp;
+    private float xOffsetMultiplier;
 
 
     public MyMarkerView(Context context, int layoutResource, long referenceTimestamp, String child) {
@@ -82,7 +84,7 @@ public class MyMarkerView extends MarkerView implements ChildConstants {
 
     @Override
     public MPPointF getOffset() {
-        return new MPPointF(-(getWidth() / 2), -getHeight());
+        return new MPPointF(-(getWidth() / xOffsetMultiplier), -getHeight());
     }
 
     private String getTimedate(long timestamp){
@@ -95,4 +97,32 @@ public class MyMarkerView extends MarkerView implements ChildConstants {
             return "xx";
         }
     }
+
+    @Override
+    public void draw(Canvas canvas, float posx, float posy)
+    {
+        // take offsets into consideration
+        posx += getXOffset();
+        posy += getYOffset();
+
+        // AVOID OFFSCREEN
+        if(posx<45)
+            posx=45;
+        if(posx>500)
+            posx=500;
+
+        // translate to the correct position and draw
+        canvas.translate(posx, posy);
+        draw(canvas);
+        canvas.translate(-posx, -posy);
+    }
+
+    public int getXOffset() {
+        return -(getWidth() / 2);
+    }
+
+    public int getYOffset() {
+        return -getHeight();
+    }
+
 }
