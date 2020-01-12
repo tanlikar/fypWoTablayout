@@ -2,16 +2,24 @@ package com.example.fypwotablayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.Toast;
 
+import com.example.fypwotablayout.Storage.AppPreferences;
 import com.example.fypwotablayout.Storage.ChildConstants;
 import com.example.fypwotablayout.Storage.PrefKey;
 import com.example.fypwotablayout.helper.generalData;
@@ -30,6 +38,8 @@ import java.util.ArrayList;
 public class display extends AppCompatActivity implements PrefKey, ChildConstants {
 
     String[] sensorReading = new String[7];
+    ArrayList<String> mRoomArray = new ArrayList<>();
+    AppPreferences mPref;
 
     final int[] sensorIcon ={
         R.drawable.ic_air_conditioner_remote_control_free_icon_1,
@@ -52,6 +62,14 @@ public class display extends AppCompatActivity implements PrefKey, ChildConstant
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display2);
+
+        mPref = new AppPreferences(this);
+
+        try {
+            mRoomArray = mPref.getListString(ROOM_KEY);
+        }catch(Exception ignored){
+
+        }
 
         roomName = getIntent().getStringExtra(BUNDLE_ROOM);
         roomPosition = getIntent().getIntExtra(BUNDLE_POSITION, 0) + 1;
@@ -310,6 +328,56 @@ public class display extends AppCompatActivity implements PrefKey, ChildConstant
         });
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_display, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_remove) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Are you sure ?");
+
+// Set up the buttons
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    mRoomArray.remove(roomPosition - 1);
+                    mPref.putListString(ROOM_KEY, mRoomArray);
+
+                    Intent intent = new Intent(display.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            builder.show();
+
+            Toast toast = Toast.makeText(getApplicationContext(), roomName + " removed", Toast.LENGTH_SHORT);
+            toast.show();
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     public void onBackPressed() {

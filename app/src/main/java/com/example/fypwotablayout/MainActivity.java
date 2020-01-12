@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements PrefKey {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mPref = new AppPreferences(this);
+               mPref = new AppPreferences(this);
 
         try{
             mRoomName = mPref.getListString(ROOM_KEY);

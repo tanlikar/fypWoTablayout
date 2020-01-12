@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.fypwotablayout.R;
+import com.example.fypwotablayout.Storage.ChildConstants;
 import com.example.fypwotablayout.Storage.PrefKey;
 import com.example.fypwotablayout.helper.MyMarkerView;
 import com.example.fypwotablayout.helper.generalData;
@@ -37,7 +38,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class graphDisplay extends AppCompatActivity implements PrefKey {
+public class graphDisplay extends AppCompatActivity implements PrefKey, ChildConstants {
 
     private LineChart chart;
     private TextView mDataText;
@@ -63,6 +64,34 @@ public class graphDisplay extends AppCompatActivity implements PrefKey {
 
         sensorType = getIntent().getStringExtra(SENSOR_TYPE);
         roomPosition = getIntent().getStringExtra(ROOM_POSITION_DISPLAY);
+
+        mDespText.setText(sensorType);
+
+        switch (sensorType) {
+            case TEMPCHILD:
+                mSymbolText.setText("°C");
+                break;
+
+            case HUMICHILD:
+                mSymbolText.setText("%");
+                break;
+
+            case PM10CHILD:
+
+            case PM25CHILD:
+                mSymbolText.setText("mg/m^3");
+                break;
+
+            case CO2CHILD:
+                mSymbolText.setText("ppm");
+                break;
+
+            case VOCCHILD:
+                mSymbolText.setText("ppb");
+                break;
+        }
+
+
 
         // Attaching the layout to the toolbar object
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
@@ -125,6 +154,8 @@ public class graphDisplay extends AppCompatActivity implements PrefKey {
 
                 mGeneralData.add(dataSnapshot.getValue(generalData.class));
                 Log.d("graph", "onChildAdded: "+mGeneralData.size());
+
+                mDataText.setText(mGeneralData.get(mGeneralData.size()-1).getData().toString());
 
                 ArrayList<Entry> mEntries = new ArrayList<>();
                 referenceTimestamp = mGeneralData.get(0).getTimestamp()/1000;

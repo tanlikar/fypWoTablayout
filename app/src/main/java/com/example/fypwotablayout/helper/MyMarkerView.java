@@ -56,6 +56,8 @@ public class MyMarkerView extends MarkerView implements ChildConstants {
                 break;
 
             case PM25CHILD:
+
+            case PM10CHILD:
                 temp = " mg/m^3";
                 break;
 
@@ -70,7 +72,6 @@ public class MyMarkerView extends MarkerView implements ChildConstants {
             case CO2eCHILD:
                 temp = " ppm";
                 break;
-
 
         }
 
