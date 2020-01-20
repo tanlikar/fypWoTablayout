@@ -141,7 +141,7 @@ public class graphDisplay extends AppCompatActivity implements PrefKey, ChildCon
         rightAxis.setEnabled(false);
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        Query mQuery = mDatabaseReference.child(roomPosition).child(sensorType).orderByKey().limitToLast(720);
+        Query mQuery = mDatabaseReference.child(roomPosition).child(sensorType).orderByChild("timestamp").limitToLast(720);
         mQuery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

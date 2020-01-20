@@ -145,11 +145,11 @@ public class display extends AppCompatActivity implements PrefKey, ChildConstant
     void getData(){
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child(roomNum).child(TEMPCHILD).orderByKey().limitToLast(1).addChildEventListener(new ChildEventListener() {
+        mDatabase.child(roomNum).child(TEMPCHILD).orderByChild("timestamp").limitToLast(1).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if(dataSnapshot.exists()){
-                    sensorReading[1] = dataSnapshot.getValue(generalData.class).getData().toString();
+                    sensorReading[1] = dataSnapshot.getValue(generalData.class).getData().toString() + " °C";
                     SensorGridAdapter adapter = new SensorGridAdapter(display.this, sensorReading, sensorIcon);
                     mGridView.setAdapter(adapter);
                 }
@@ -176,11 +176,11 @@ public class display extends AppCompatActivity implements PrefKey, ChildConstant
             }
         });
 
-        mDatabase.child(roomNum).child(HUMICHILD).orderByKey().limitToLast(1).addChildEventListener(new ChildEventListener() {
+        mDatabase.child(roomNum).child(HUMICHILD).orderByChild("timestamp").limitToLast(1).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if(dataSnapshot.exists()){
-                    sensorReading[2] = dataSnapshot.getValue(generalData.class).getData().toString();
+                    sensorReading[2] = dataSnapshot.getValue(generalData.class).getData().toString() + " %";
                     SensorGridAdapter adapter = new SensorGridAdapter(display.this, sensorReading, sensorIcon);
                     mGridView.setAdapter(adapter);
                 }
@@ -206,11 +206,11 @@ public class display extends AppCompatActivity implements PrefKey, ChildConstant
 
             }
         });
-        mDatabase.child(roomNum).child(CO2CHILD).orderByKey().limitToLast(1).addChildEventListener(new ChildEventListener() {
+        mDatabase.child(roomNum).child(CO2CHILD).orderByChild("timestamp").limitToLast(1).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if(dataSnapshot.exists()){
-                    sensorReading[3] = dataSnapshot.getValue(generalData.class).getData().toString();
+                    sensorReading[3] = dataSnapshot.getValue(generalData.class).getData().toString() + " ppm";
                     SensorGridAdapter adapter = new SensorGridAdapter(display.this, sensorReading, sensorIcon);
                     mGridView.setAdapter(adapter);
                 }
@@ -236,11 +236,11 @@ public class display extends AppCompatActivity implements PrefKey, ChildConstant
 
             }
         });
-        mDatabase.child(roomNum).child(PM10CHILD).orderByKey().limitToLast(1).addChildEventListener(new ChildEventListener() {
+        mDatabase.child(roomNum).child(PM10CHILD).orderByChild("timestamp").limitToLast(1).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if(dataSnapshot.exists()){
-                    sensorReading[4] = dataSnapshot.getValue(generalData.class).getData().toString();
+                    sensorReading[4] = dataSnapshot.getValue(generalData.class).getData().toString() + " mg/m^3";
                     SensorGridAdapter adapter = new SensorGridAdapter(display.this, sensorReading, sensorIcon);
                     mGridView.setAdapter(adapter);
                 }
@@ -266,11 +266,11 @@ public class display extends AppCompatActivity implements PrefKey, ChildConstant
 
             }
         });
-        mDatabase.child(roomNum).child(PM25CHILD).orderByKey().limitToLast(1).addChildEventListener(new ChildEventListener() {
+        mDatabase.child(roomNum).child(PM25CHILD).orderByChild("timestamp").limitToLast(1).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if(dataSnapshot.exists()){
-                    sensorReading[5] = dataSnapshot.getValue(generalData.class).getData().toString();
+                    sensorReading[5] = dataSnapshot.getValue(generalData.class).getData().toString() + " mg/m^3";
                     SensorGridAdapter adapter = new SensorGridAdapter(display.this, sensorReading, sensorIcon);
                     mGridView.setAdapter(adapter);
                 }
@@ -296,11 +296,11 @@ public class display extends AppCompatActivity implements PrefKey, ChildConstant
 
             }
         });
-        mDatabase.child(roomNum).child(VOCCHILD).orderByKey().limitToLast(1).addChildEventListener(new ChildEventListener() {
+        mDatabase.child(roomNum).child(VOCCHILD).orderByChild("timestamp").limitToLast(1).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if(dataSnapshot.exists()){
-                    sensorReading[6] = dataSnapshot.getValue(generalData.class).getData().toString();
+                    sensorReading[6] = dataSnapshot.getValue(generalData.class).getData().toString() + " ppb";
                     SensorGridAdapter adapter = new SensorGridAdapter(display.this, sensorReading, sensorIcon);
                     mGridView.setAdapter(adapter);
                 }
